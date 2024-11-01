@@ -1,0 +1,41 @@
+Swap and Maximize
+
+Given an array arr[ ] of positive elements. Consider the array as a circular array, meaning the element after the last element is the first element of the array. 
+The task is to find the maximum sum of the absolute differences between consecutive elements with shuffling of array elements allowed 
+i.e. shuffle the array elements and make [a1..an] such order that  |a1 – a2| + |a2 – a3| + …… + |an-1 – an| + |an – a1| is maximized.
+
+Code:
+
+class Solution {
+    public long maxSum(Long[] arr) {
+        Arrays.sort(arr);  // Step 1: Sort the array
+        int n = arr.length;
+        
+        Long[] rearranged = new Long[n];
+        
+        int left = 0;  // Start pointer from the beginning of sorted array
+        int right = n - 1;  // End pointer from the end of sorted array
+        int idx = 0;
+        
+        // Step 2: Rearrange the array in max-min fashion
+        while (left <= right) {
+            if (idx % 2 == 0) {
+                rearranged[idx] = arr[left];
+                left++;
+            } else {
+                rearranged[idx] = arr[right];
+                right--;
+            }
+            idx++;
+        }
+        
+        // Step 3: Calculate the maximum sum of absolute differences in circular array
+        long maxSum = 0;
+        for (int i = 0; i < n; i++) {
+            maxSum += Math.abs(rearranged[i] - rearranged[(i + 1) % n]);
+        }
+        
+        return maxSum;
+    }
+}
+
