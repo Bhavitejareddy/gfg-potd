@@ -1,0 +1,37 @@
+Problem : Kth distance
+Given an unsorted array arr and a number k which is smaller than the size of the array.
+Return true if the array contains any duplicate within k distance throughout the array else false.
+
+Code:
+
+class Solution {
+    public boolean checkDuplicatesWithinK(int[] arr, int k) {
+        // Create a HashSet to store elements within the k-distance window
+        HashSet<Integer> set = new HashSet<>();
+        
+        for (int i = 0; i < arr.length; i++) {
+            // If element is already in the set, a duplicate is found within k distance
+            if (set.contains(arr[i])) {
+                return true;
+            }
+            
+            // Add the current element to the set
+            set.add(arr[i]);
+            
+            // Remove the element that's now outside the k-distance window
+            if (i >= k) {
+                set.remove(arr[i - k]);
+            }
+        }
+        
+        // No duplicates within k distance
+        return false;
+    }
+}
+
+Time Complexity:
+O(N), where N is the length of the array.
+Each element is added and removed at most once from the HashSet.
+
+Space Complexity:
+O(K), where K is the maximum distance.
