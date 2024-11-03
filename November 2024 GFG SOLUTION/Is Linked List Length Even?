@@ -1,0 +1,28 @@
+Is Linked List Length Even?
+Given a linked list, your task is to complete the function isLengthEven() which contains the head of the linked list, 
+and check whether the length of the linked list is even or not. 
+Return true if it is even, otherwise false.
+
+Code:
+
+class Solution {
+    public boolean isLengthEven(Node head) {
+        Node curr = head;
+        int count =0;
+        while(curr != null){
+            count++;
+            curr = curr.next;
+            
+        }
+        if(count%2==0){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
+    }
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)
