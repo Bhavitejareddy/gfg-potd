@@ -1,0 +1,50 @@
+Find All Triplets with Zero Sum
+Given an array arr[], find all possible indices [i, j, k] of triplets [arr[i], arr[j], arr[k]] in the array whose sum is equal to zero. 
+Return indices of triplets in any order and all the returned triplets indices should also be internally sorted, 
+i.e., for any triplet indices [i, j, k], the condition i < j < k should hold.
+
+
+Code:
+
+class Solution {
+    public List<List<Integer>> findTriplets(int[] arr) {
+        List<List<Integer>> out = new ArrayList<>();
+        Map<Integer, List<Integer>> map = new HashMap<>();
+        int size = arr.length;
+        
+        // Populate the map with indices for each element
+        for (int i = 0; i < size; i++) {
+            map.putIfAbsent(arr[i], new ArrayList<>());
+            map.get(arr[i]).add(i);
+        }
+        
+        // Find triplets
+        for (int i = 0; i < size - 2; i++) {
+            for (int j = i + 1; j < size - 1; j++) {
+                int target = 0 - (arr[i] + arr[j]);
+                if (map.containsKey(target)) {
+                    for (int n : map.get(target)) {
+                        if (n > j) {
+                            List<Integer> triplet = new ArrayList<>();
+                            triplet.add(i);
+                            triplet.add(j);
+                            triplet.add(n);
+                            out.add(triplet);
+                        }
+                    }
+                }
+            }
+        }
+        
+        return out;
+    }
+}
+
+Time Complexity:
+
+O((n-2) * (n-1) * n) = O(n^3)
+
+Space Complexity:
+
+O(n^2) + O(n^3) = O(n^3)
+
