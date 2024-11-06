@@ -1,0 +1,21 @@
+Root to leaf paths sum
+Given a binary tree, where every node value is a number. Find the sum of all the numbers that are formed from root to leaf paths. 
+The formation of the numbers would be like 10*parent + current (see the examples for more clarification).
+
+Code:
+
+class Solution {
+   public static int help(Node root,int num){
+        if(root==null)return 0;
+        num = num*10+root.data;
+        if(root.left==null && root.right==null)return num;
+        return help(root.left,num)+help(root.right,num);
+    }
+    public static int treePathsSum(Node root) {
+        // add code here.
+        return help(root,0);
+    }
+}
+
+Time Complexity:- O(N)
+Space Complexity:- O(H)
