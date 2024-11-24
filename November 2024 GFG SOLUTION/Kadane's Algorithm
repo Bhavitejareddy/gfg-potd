@@ -1,0 +1,21 @@
+Kadane's Algorithm
+
+Given an integer array arr[]. You need to find the maximum sum of a subarray.
+
+Code:
+
+class Solution {
+    int maxSubarraySum(int[] arr) {
+        int max_far = Integer.MIN_VALUE;
+        int curr = 0;
+        for(int i=0;i<arr.length;i++){
+            curr = Math.max(arr[i],curr + arr[i]);
+            max_far = Math.max(curr,max_far);
+        }
+        return max_far;
+
+    }
+}
+
+The Time Complexity is O(N)
+The Space Complexity is O(1)
