@@ -1,0 +1,49 @@
+Max Circular Subarray Sum
+Given an array of integers arr[] in a circular fashion. 
+Find the maximum subarray sum that we can get if we assume the array to be circular.
+
+Code:
+class Solution {
+
+    // Function to find maximum circular subarray sum.
+    public int circularSubarraySum(int arr[]) {
+        int n = arr.length;
+
+        int maxKadane = kadane(arr);
+
+        int totalSum = 0;
+        for (int i = 0; i < n; i++) {
+            totalSum += arr[i];
+        }
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = -arr[i];
+        }
+        int minSubarraySum = kadane(arr);
+
+        for (int i = 0; i < n; i++) {
+            arr[i] = -arr[i];
+        }
+
+        int circularSum = totalSum + minSubarraySum; // Equivalent to totalSum - (-minSubarraySum)
+
+        if (circularSum == 0) {
+            return maxKadane;
+        }
+
+        return Math.max(maxKadane, circularSum);
+    }
+
+    // Helper function to find maximum subarray sum using Kadane's algorithm
+    private int kadane(int arr[]) {
+        int maxEndingHere = arr[0];
+        int maxSoFar = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            maxEndingHere = Math.max(arr[i], maxEndingHere + arr[i]);
+            maxSoFar = Math.max(maxSoFar, maxEndingHere);
+        }
+        return maxSoFar;
+    }
+}
+The Time Complexity is O(N)
+The Space Complexity is O(N)
