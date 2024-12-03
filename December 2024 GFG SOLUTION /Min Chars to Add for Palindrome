@@ -1,0 +1,39 @@
+Min Chars to Add for Palindrome
+Given a string s, the task is to find the minimum characters to be added at the front to make the string palindrome.
+
+Note: A palindrome string is a sequence of characters that reads the same forward and backward.
+
+Code:
+
+class Solution {
+    public static int minChar(String s) {
+        // Reverse the string
+        String rev = new StringBuilder(s).reverse().toString();
+        
+        // Concatenate original string with reversed string with a separator
+        String concat = s + "#" + rev;
+        
+        // Compute the KMP prefix array
+        int n = concat.length();
+        int[] lps = new int[n];
+        
+        // Build the LPS (Longest Prefix Suffix) array
+        int i = 1, len = 0;
+        while (i < n) {
+            if (concat.charAt(i) == concat.charAt(len)) {
+                len++;
+                lps[i] = len;
+                i++;
+            } else {
+                if (len != 0) {
+                    len = lps[len - 1];
+                } else {
+                    lps[i] = 0;
+                    i++;
+                }
+            }
+        }
+        
+        // Minimum characters to be added
+        return s.length() - lps[n - 1];
+    }
