@@ -1,0 +1,63 @@
+Count Inversions
+Given an array of integers arr[]. Find the Inversion Count in the array.
+Two elements arr[i] and arr[j] form an inversion if arr[i] > arr[j] and i < j.
+
+Inversion Count: For an array, inversion count indicates how far (or close) the array is from being sorted. If the array is already sorted then the inversion count is 0.
+If an array is sorted in the reverse order then the inversion count is the maximum.
+
+Code:
+class Solution {
+    // Function to count inversions in the array.
+    static int inversionCount(int arr[]) {
+        // Call the helper function with additional parameters.
+        return mergeSortAndCount(arr, 0, arr.length - 1);
+    }
+
+    // Merge sort function with inversion counting.
+    private static int mergeSortAndCount(int[] arr, int left, int right) {
+        int count = 0;
+
+        if (left < right) {
+            int mid = left + (right - left) / 2;
+
+            // Count inversions in the left and right subarrays.
+            count += mergeSortAndCount(arr, left, mid);
+            count += mergeSortAndCount(arr, mid + 1, right);
+
+            // Count inversions during the merge step.
+            count += mergeAndCount(arr, left, mid, right);
+        }
+
+        return count;
+    }
+
+    // Merge two sorted halves and count inversions.
+    private static int mergeAndCount(int[] arr, int left, int mid, int right) {
+        int[] leftSubarray = java.util.Arrays.copyOfRange(arr, left, mid + 1);
+        int[] rightSubarray = java.util.Arrays.copyOfRange(arr, mid + 1, right + 1);
+
+        int i = 0, j = 0, k = left, swaps = 0;
+
+        // Merge the two subarrays and count inversions.
+        while (i < leftSubarray.length && j < rightSubarray.length) {
+            if (leftSubarray[i] <= rightSubarray[j]) {
+                arr[k++] = leftSubarray[i++];
+            } else {
+                arr[k++] = rightSubarray[j++];
+                swaps += (leftSubarray.length - i); // Count inversions.
+            }
+        }
+
+        // Copy the remaining elements of the left subarray (if any).
+        while (i < leftSubarray.length) {
+            arr[k++] = leftSubarray[i++];
+        }
+
+        // Copy the remaining elements of the right subarray (if any).
+        while (j < rightSubarray.length) {
+            arr[k++] = rightSubarray[j++];
+        }
+
+        return swaps;
+    }
+}
