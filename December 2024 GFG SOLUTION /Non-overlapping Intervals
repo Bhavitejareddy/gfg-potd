@@ -1,0 +1,28 @@
+Non-overlapping Intervals
+Given a 2D array intervals[][] of representing intervals where intervals [i] = [starti, endi ]. 
+Return the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
+
+Code:
+
+class Solution {
+    static int minRemoval(int intervals[][]) {
+        // Step 1: Sort intervals by their end times
+        Arrays.sort(intervals, (a, b) -> Integer.compare(a[1], b[1]));
+
+        int count = 0;  // Count of non-overlapping intervals
+        int lastEnd = Integer.MIN_VALUE;
+
+        // Step 2: Iterate through intervals
+        for (int[] interval : intervals) {
+            if (interval[0] >= lastEnd) {
+                // No overlap, update lastEnd
+                lastEnd = interval[1];
+                count++;
+            }
+        }
+
+        // Step 3: Return the number of intervals to remove
+        return intervals.length - count;
+    }
+}
+
