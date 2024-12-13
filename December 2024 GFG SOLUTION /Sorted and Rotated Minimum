@@ -1,0 +1,25 @@
+Sorted and Rotated Minimum
+A sorted array arr[] (may contain duplicates) is rotated at some unknown point, the task is to find the minimum element in it. 
+
+Code:
+class Solution {
+    public int findMin(int[] arr) {
+        int low = 0, high = arr.length - 1;
+
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+
+            // If mid element is greater than the last element, the minimum is in the right half
+            if (arr[mid] > arr[high]) {
+                low = mid + 1;
+            } 
+            // Otherwise, the minimum is in the left half, including mid
+            else {
+                high = mid;
+            }
+        }
+
+        // At the end of the loop, low == high, pointing to the minimum element
+        return arr[low];
+    }
+}
