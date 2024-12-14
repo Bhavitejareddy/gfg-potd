@@ -1,0 +1,43 @@
+Search in Rotated Sorted Array
+Given a sorted and rotated array arr[] of distinct elements, the task is to find the index of a target key. 
+Return -1 if the key is not found.
+
+Code:
+class Solution {
+    int search(int[] arr, int key) {
+        int low = 0, high = arr.length - 1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            // If the key is found at mid, return its index
+            if (arr[mid] == key) {
+                return mid;
+            }
+
+            // Check which part is sorted
+            if (arr[low] <= arr[mid]) {
+                // Left part is sorted
+                if (key >= arr[low] && key < arr[mid]) {
+                    // Key lies in the sorted left part
+                    high = mid - 1;
+                } else {
+                    // Key lies in the right part
+                    low = mid + 1;
+                }
+            } else {
+                // Right part is sorted
+                if (key > arr[mid] && key <= arr[high]) {
+                    // Key lies in the sorted right part
+                    low = mid + 1;
+                } else {
+                    // Key lies in the left part
+                    high = mid - 1;
+                }
+            }
+        }
+
+        // If the loop ends, the key is not found
+        return -1;
+    }
+}
