@@ -1,0 +1,27 @@
+Peak element
+Given an array arr[] where no two adjacent elements are same, find the index of a peak element. 
+An element is considered to be a peak if it is greater than its adjacent elements (if they exist). If there are multiple peak elements, return index of any one of them. The output will be "true" if the index returned by your function is correct; otherwise, it will be "false".
+
+Note: Consider the element before the first element and the element after the last element to be negative infinity.
+
+class Solution {
+    public int peakElement(int[] arr) {
+        int low = 0, high = arr.length - 1;
+
+        while (low < high) {
+            int mid = low + (high - low) / 2;
+
+            // If the mid element is greater than its next element,
+            // the peak is on the left half (including mid)
+            if (arr[mid] > arr[mid + 1]) {
+                high = mid;
+            } else {
+                // Otherwise, the peak is on the right half (excluding mid)
+                low = mid + 1;
+            }
+        }
+
+        // At the end of the loop, low == high, pointing to a peak element
+        return low;
+    }
+}
