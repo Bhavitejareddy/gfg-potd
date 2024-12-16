@@ -1,0 +1,44 @@
+
+K-th element of two Arrays
+Given two sorted arrays a[] and b[] and an element k, the task is to find the element that would be at the kth position of the combined sorted array.
+
+Code:
+
+class Solution {
+    public int kthElement(int a[], int b[], int k) {
+        int n = a.length;
+        int m = b.length;
+
+        // Ensure that we always binary search the smaller array
+        if (n > m) {
+            return kthElement(b, a, k);
+        }
+
+        int low = Math.max(0, k - m), high = Math.min(k, n);
+
+        while (low <= high) {
+            int cutA = low + (high - low) / 2;
+            int cutB = k - cutA;
+
+            int leftA = (cutA == 0) ? Integer.MIN_VALUE : a[cutA - 1];
+            int leftB = (cutB == 0) ? Integer.MIN_VALUE : b[cutB - 1];
+            int rightA = (cutA == n) ? Integer.MAX_VALUE : a[cutA];
+            int rightB = (cutB == m) ? Integer.MAX_VALUE : b[cutB];
+
+            // Check if the partition is valid
+            if (leftA <= rightB && leftB <= rightA) {
+                // Return the maximum of the left partition
+                return Math.max(leftA, leftB);
+            } else if (leftA > rightB) {
+                // Move partition A to the left
+                high = cutA - 1;
+            } else {
+                // Move partition A to the right
+                low = cutA + 1;
+            }
+        }
+
+        // This case should never occur if input is valid
+        return -1;
+    }
+}
