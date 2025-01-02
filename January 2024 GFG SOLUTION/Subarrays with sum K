@@ -1,0 +1,21 @@
+Subarrays with sum K
+Given an unsorted array of integers, find the number of continuous subarrays having sum exactly equal to a given number k.
+
+Code:
+class Solution {
+    public int countSubarrays(int arr[], int k) {
+    HashMap<Integer,Integer> sum = new HashMap<>();
+    int count =0;
+    int Sum=0;
+    sum.put(0,1);
+    for(int num:arr){
+        Sum += num;
+    
+    if(sum.containsKey(Sum-k)){
+        count += sum.get(Sum-k);
+    }
+    sum.put(Sum,sum.getOrDefault(Sum,0)+1);
+    }
+    return count;
+    }
+}
