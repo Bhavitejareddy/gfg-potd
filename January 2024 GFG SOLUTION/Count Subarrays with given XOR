@@ -1,0 +1,18 @@
+Count Subarrays with given XOR
+Given an array of integers arr[] and a number k, count the number of subarrays having XOR of their elements as k.
+Code:
+class Solution {
+    public long subarrayXor(int arr[], int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int x = 0;
+        long count =0;
+        map.put(0,1);
+        for(int num : arr){
+            x ^= num;
+            int tar = x^k;
+            count +=map.getOrDefault(tar,0);
+            map.put(x,map.getOrDefault(x,0)+1);
+        }
+        return count;
+    }
+}
