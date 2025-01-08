@@ -4,7 +4,6 @@ The groups must be created in order of their appearance in the original array. L
 
 Note: The final output will be in lexicographic order.
 
-
 Code:
 class Solution {
     public ArrayList<ArrayList<String>> anagrams(String[] arr) {
