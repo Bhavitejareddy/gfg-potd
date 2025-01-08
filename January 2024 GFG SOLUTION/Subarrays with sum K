@@ -10,7 +10,6 @@ class Solution {
     sum.put(0,1);
     for(int num:arr){
         Sum += num;
-    
     if(sum.containsKey(Sum-k)){
         count += sum.get(Sum-k);
     }
