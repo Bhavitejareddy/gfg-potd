@@ -7,38 +7,30 @@ Code:
 
 class Solution {
     public List<Integer> sumClosest(int[] arr, int target) {
-        // Sort the array
         Arrays.sort(arr);
-        
-        // Initialize variables
-        int n = arr.length;
+                int n = arr.length;
         int closestSum = Integer.MAX_VALUE;
         int maxAbsDiff = Integer.MIN_VALUE;
         List<Integer> result = new ArrayList<>();
         
         int left = 0, right = n - 1;
         
-        // Two-pointer approach
         while (left < right) {
             int sum = arr[left] + arr[right];
             int absDiff = arr[right] - arr[left]; // Absolute difference
             
-            // Update the closest sum and result pair
             if (Math.abs(target - sum) < Math.abs(target - closestSum) || 
                (Math.abs(target - sum) == Math.abs(target - closestSum) && absDiff > maxAbsDiff)) {
                 closestSum = sum;
                 maxAbsDiff = absDiff;
                 result = Arrays.asList(arr[left], arr[right]);
             }
-            
-            // Move pointers
-            if (sum < target) {
+                        if (sum < target) {
                 left++;
             } else {
                 right--;
             }
         }
-        
         return result;
     }
 }
