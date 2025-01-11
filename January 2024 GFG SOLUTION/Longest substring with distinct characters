@@ -1,0 +1,24 @@
+Longest substring with distinct characters
+Given a string s, find the length of the longest substring with all distinct characters. 
+
+Code:
+class Solution {
+    public int longestUniqueSubstr(String s) {
+        if(s == null || s.length()==0){
+            return 0;
+        }
+        HashSet<Character> Set = new HashSet<>();
+        int len =0;
+        int start = 0;
+        for(int end=0;end<s.length();end++){
+            char curr = s.charAt(end);
+            while(Set.contains(curr)){
+                Set.remove(s.charAt(start));
+                start++;
+            }
+            Set.add(curr);
+            len = Math.max(len,end -start +1);
+        }
+        return len;
+    }
+}
