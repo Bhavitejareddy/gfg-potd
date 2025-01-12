@@ -1,0 +1,35 @@
+Trapping Rain Water
+Given an array arr[] with non-negative integers representing the height of blocks.
+If the width of each block is 1, compute how much water can be trapped between the blocks during the rainy season. 
+
+Code:
+
+class Solution {
+    public int maxWater(int arr[]) {
+        int left = 0; // Pointer to the left side of the array
+        int right = arr.length - 1; // Pointer to the right side of the array
+        int leftMax = 0; // Maximum height on the left
+        int rightMax = 0; // Maximum height on the right
+        int waterTrapped = 0; // Total water trapped
+
+        while (left <= right) {
+            if (arr[left] <= arr[right]) {
+                if (arr[left] >= leftMax) {
+                    leftMax = arr[left]; // Update leftMax
+                } else {
+                    waterTrapped += leftMax - arr[left]; // Water trapped on the left
+                }
+                left++; // Move the left pointer
+            } else {
+                if (arr[right] >= rightMax) {
+                    rightMax = arr[right]; // Update rightMax
+                } else {
+                    waterTrapped += rightMax - arr[right]; // Water trapped on the right
+                }
+                right--; // Move the right pointer
+            }
+        }
+
+        return waterTrapped;
+    }
+}
