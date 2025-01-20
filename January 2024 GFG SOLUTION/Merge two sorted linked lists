@@ -3,6 +3,7 @@ Given the head of two sorted linked lists consisting of nodes respectively.
 The task is to merge both lists and return the head of the sorted merged list.
 
 Code:
+
 class Solution {
     Node sortedMerge(Node head1, Node head2) {
         Node dummy = new Node(0);
