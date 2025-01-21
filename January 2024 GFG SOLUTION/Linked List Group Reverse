@@ -1,0 +1,52 @@
+Linked List Group Reverse
+Given the head a linked list, the task is to reverse every k node in the linked list. 
+If the number of nodes is not a multiple of k then the left-out nodes in the end,
+should be considered as a group and must be reversed.
+
+Code:
+class Solution {
+    public static Node reverseKGroup(Node head, int k) {
+        int len = getLength(head);
+        Node H = null;
+        Node T = null, pH = null , pT = null;
+        Node curr = head;
+        while(len>0){
+            int j=k;
+            j = Math.min(j,len);
+            while(j>0){
+                Node nex = curr.next;
+                if(pH == null){
+                pH = curr;
+                pT = curr;
+                }
+                else{
+                    curr.next = pH;
+                    pH = curr;
+                }
+                curr = nex;
+                j--;
+                len--;
+            }
+            if(H == null){
+                H = pH;
+                T = pT;
+            }
+            else{
+                T.next = pH;
+                T = pT;
+            }
+            pH = null;
+            pT = null;
+        }
+        T.next = null;
+        return H;
+    }
+    public static int getLength(Node head){
+        int len =0;
+        while(head!=null){
+            len++;
+            head = head.next;
+        }
+        return len;
+    }
+}
