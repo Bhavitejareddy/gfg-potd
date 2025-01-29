@@ -1,0 +1,17 @@
+Implement Pow
+Implement the function power(b, e), which calculates b raised to the power of e (i.e. be).
+
+Code:
+
+class Solution {
+    double power(double b, int e) {
+        if(e<0){
+            return 1/power(b,-e);
+        }
+        if(e==1) return b;
+        if(e==0) return 1;
+        double halfpow = power(b,e/2);
+        if(e%2==0) return halfpow * halfpow;
+        return b*halfpow*halfpow;
+    }
+}
