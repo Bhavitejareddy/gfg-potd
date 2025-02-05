@@ -1,0 +1,21 @@
+Mirror Tree
+Given a binary tree, convert the binary tree to its Mirror tree.
+
+Mirror of a Binary Tree T is another Binary Tree M(T) with left and right children of all non-leaf nodes interchanged.     
+
+
+class Solution {
+    void mirror(Node node) {
+        solve(node);
+    }
+    Node solve(Node node){
+        if(node == null){
+            return null;
+        }
+        Node m_left = solve(node.left);
+        Node m_right = solve(node.right);
+        node.left = m_right;
+        node.right = m_left;
+        return node;
+    }
+}
