@@ -1,0 +1,25 @@
+Find the number of islands
+Given a grid of size n*m (n is the number of rows and m is the number of columns in the grid) consisting of 'W's (Water) and 'L's (Land). 
+Find the number of islands.
+
+Note: An island is either surrounded by water or the boundary of a grid and is formed by connecting adjacent lands horizontally or vertically or diagonally 
+i.e., in all 8 directions.
+
+Code:
+
+class Solution{
+    public int countIslands(char[][] g){
+        int n = g.length, m = g[0].length, ans = 0;
+        for(int i = 0; i < n; i++)
+            for(int j = 0; j < m; j++)
+                if(g[i][j]=='L'){ ans++; dfs(g, i, j, n, m); }
+        return ans;
+    }
+    void dfs(char[][] g, int i, int j, int n, int m){
+        if(i < 0 || j < 0 || i >= n || j >= m || g[i][j]=='W') return;
+        g[i][j] = 'W';
+        for(int a = -1; a <= 1; a++)
+            for(int b = -1; b <= 1; b++)
+                dfs(g, i + a, j + b, n, m);
+    }
+}
